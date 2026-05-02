@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     });
 
     const mailOptions = {
-        from: process.env.EMAIL_USER,
+        from: `"${name}" <${process.env.EMAIL_USER}>`,
         replyTo: email,
         to: process.env.RECEIVER_EMAIL || process.env.EMAIL_USER,
         subject: `New Portfolio Message from ${name}`,
