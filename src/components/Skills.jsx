@@ -81,17 +81,17 @@ const Skills = () => {
                     initial={{ opacity: 0, y: 16 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.15 }}
-                    className="flex flex-wrap gap-2 mb-12"
+                    className="flex flex-wrap gap-3 mb-16 justify-center"
                 >
                     {categories.map((cat, i) => (
                         <button
                             key={cat.name}
                             onClick={() => setActive(i)}
-                            className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${active === i
-                                ? 'text-white shadow-md'
-                                : 'bg-white border border-slate-200 text-slate-500 hover:text-slate-800 hover:border-slate-300'
+                            className={`px-8 py-3 rounded-2xl text-[13px] font-bold uppercase tracking-widest transition-all duration-300 ${active === i
+                                ? 'text-white shadow-xl scale-105'
+                                : 'bg-white border border-slate-100 text-slate-400 hover:text-slate-900 hover:border-slate-300'
                                 }`}
-                            style={active === i ? { background: cat.color } : {}}
+                            style={active === i ? { background: cat.color, boxShadow: `0 10px 20px -5px ${cat.color}66` } : {}}
                         >
                             {cat.name}
                         </button>
@@ -102,38 +102,38 @@ const Skills = () => {
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={active}
-                        initial={{ opacity: 0, y: 16 }}
+                        initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.3 }}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                     >
                         {categories[active].skills.map((skill, i) => (
                             <motion.div
                                 key={skill.name}
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: i * 0.07 }}
-                                className="card p-6 text-center group cursor-default"
+                                transition={{ delay: i * 0.08 }}
+                                className="glass-card p-8 text-center group cursor-default hover:bg-white transition-all duration-500"
                             >
                                 {/* Icon */}
-                                <div className={`w-14 h-14 mx-auto mb-4 rounded-xl ${categories[active].bg} flex items-center justify-center text-3xl ${skill.iconClass} group-hover:scale-110 transition-transform duration-300`}>
+                                <div className={`w-16 h-16 mx-auto mb-6 rounded-2xl ${categories[active].bg} flex items-center justify-center text-4xl ${skill.iconClass} group-hover:rotate-6 transition-transform duration-500 shadow-sm`}>
                                     {skill.icon}
                                 </div>
 
-                                <h3 className="font-semibold text-slate-800 mb-4 text-[15px]">{skill.name}</h3>
+                                <h3 className="font-bold text-slate-900 mb-6 text-base tracking-tight">{skill.name}</h3>
 
                                 {/* Progress */}
-                                <div className="progress-track mb-1.5">
+                                <div className="progress-track mb-2 h-[8px] bg-slate-50">
                                     <motion.div
                                         initial={{ width: 0 }}
                                         animate={inView ? { width: `${skill.level}%` } : {}}
-                                        transition={{ duration: 1.3, delay: 0.3 + i * 0.12, ease: 'easeOut' }}
+                                        transition={{ duration: 1.5, delay: 0.4 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                                         className="progress-fill"
-                                        style={{ background: `linear-gradient(90deg, ${categories[active].color}cc, ${categories[active].color})` }}
+                                        style={{ background: `linear-gradient(90deg, ${categories[active].color}aa, ${categories[active].color})` }}
                                     />
                                 </div>
-                                <p className="text-xs text-slate-400 font-mono">{skill.level}%</p>
+                                <p className="text-[10px] text-slate-400 font-bold font-mono tracking-widest">{skill.level}% MASTERY</p>
                             </motion.div>
                         ))}
                     </motion.div>

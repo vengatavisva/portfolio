@@ -47,10 +47,10 @@ const fadeUp = {
 }
 
 const About = () => {
-    const [ref, inView] = useInView({ threshold: 0.08, triggerOnce: true })
+    const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true })
 
     return (
-        <section id="about" className="section-padding section-gray relative overflow-hidden" ref={ref}>
+        <section id="about" className="section-padding section-white relative overflow-hidden" ref={ref}>
             <div className="section-divider absolute top-0 left-0 right-0" />
 
             <div className="container-xl relative">
@@ -59,15 +59,15 @@ const About = () => {
                     variants={fadeUp}
                     initial="hidden"
                     animate={inView ? 'visible' : 'hidden'}
-                    className="mb-16"
+                    className="mb-20 text-center max-w-3xl mx-auto"
                 >
-                    <span className="section-label mb-4">Who I Am</span>
-                    <h2 className="text-4xl sm:text-5xl font-display font-bold text-slate-900 mt-3">
-                        About <span className="gradient-text">Me</span>
+                    <span className="section-label mb-5 justify-center">Identity</span>
+                    <h2 className="text-5xl sm:text-6xl font-display font-black text-slate-900 mt-4 tracking-tight">
+                        Transforming Ideas Into <span className="gradient-text">Impact</span>
                     </h2>
                 </motion.div>
 
-                <div className="grid lg:grid-cols-[1fr_400px] gap-16 items-start">
+                <div className="grid lg:grid-cols-[1fr_420px] gap-20 items-start">
                     {/* Left */}
                     <div>
                         <motion.p
@@ -75,11 +75,9 @@ const About = () => {
                             initial="hidden"
                             animate={inView ? 'visible' : 'hidden'}
                             custom={0.15}
-                            className="text-slate-600 text-lg leading-relaxed mb-5"
+                            className="text-slate-600 text-xl leading-relaxed mb-8 font-medium"
                         >
-                            I'm a passionate <strong className="text-slate-800 font-semibold">Computer Science student</strong> with a drive to build technology that makes a difference. From{' '}
-                            <strong className="text-indigo-600 font-semibold">AI-powered satellite systems</strong> to{' '}
-                            <strong className="text-cyan-600 font-semibold">IoT-enabled climate solutions</strong>, I turn complex ideas into elegant, working products.
+                            I'm a <strong className="text-slate-900">Computer Science engineer</strong> dedicated to bridging the gap between complex algorithms and human-centric solutions. My focus lies at the intersection of <strong className="text-indigo-600">AI intelligence</strong> and <strong className="text-cyan-500">Embedded IoT</strong>.
                         </motion.p>
 
                         <motion.p
@@ -87,30 +85,30 @@ const About = () => {
                             initial="hidden"
                             animate={inView ? 'visible' : 'hidden'}
                             custom={0.25}
-                            className="text-slate-500 text-base leading-relaxed mb-12"
+                            className="text-slate-500 text-lg leading-relaxed mb-16"
                         >
-                            My journey spans full-stack development, machine learning, and embedded systems. I believe in building things that are not just functional, but impactful — solving real problems for real people.
+                            Currently a B.E student at PSNA College of Engineering, I spend my time engineering satellite-based climate tech and full-stack ecosystems. I don't just write code; I architect experiences.
                         </motion.p>
 
                         {/* Stats */}
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                             {stats.map((stat, i) => (
                                 <motion.div
                                     key={stat.label}
                                     variants={fadeUp}
                                     initial="hidden"
                                     animate={inView ? 'visible' : 'hidden'}
-                                    custom={0.3 + i * 0.08}
-                                    className="card p-5 text-center group cursor-default"
+                                    custom={0.3 + i * 0.1}
+                                    className="card p-6 border-none shadow-premium-soft bg-slate-50/50 group cursor-default"
                                 >
                                     <div
-                                        className="text-3xl font-display font-bold mb-1.5"
+                                        className="text-4xl font-display font-black mb-2"
                                         style={{ color: stat.color }}
                                     >
                                         {stat.value}
-                                        {stat.suffix && <span className="text-base text-slate-300">{stat.suffix}</span>}
+                                        {stat.suffix && <span className="text-lg text-slate-300 font-bold">{stat.suffix}</span>}
                                     </div>
-                                    <div className="text-xs text-slate-400 font-mono tracking-wider uppercase">{stat.label}</div>
+                                    <div className="text-[10px] text-slate-400 font-bold tracking-[0.2em] uppercase">{stat.label}</div>
                                 </motion.div>
                             ))}
                         </div>
@@ -122,7 +120,7 @@ const About = () => {
                         initial="hidden"
                         animate={inView ? 'visible' : 'hidden'}
                         custom={0.2}
-                        className="space-y-3"
+                        className="space-y-4"
                     >
                         {highlights.map((item, i) => (
                             <motion.div
@@ -131,14 +129,14 @@ const About = () => {
                                 initial="hidden"
                                 animate={inView ? 'visible' : 'hidden'}
                                 custom={0.3 + i * 0.1}
-                                className="card p-5 flex items-start gap-4 group cursor-default"
+                                className="glass-card p-6 flex items-start gap-5 group cursor-default hover:bg-white transition-all duration-500 rounded-2xl"
                             >
-                                <div className={`p-3 rounded-xl ${item.iconBg} ${item.iconColor} shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                                <div className={`p-4 rounded-2xl ${item.iconBg} ${item.iconColor} shrink-0 group-hover:rotate-6 transition-transform duration-500 shadow-sm`}>
                                     {item.icon}
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-800 mb-1">{item.title}</h3>
-                                    <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+                                    <h3 className="font-bold text-slate-900 mb-1.5 text-lg">{item.title}</h3>
+                                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{item.desc}</p>
                                 </div>
                             </motion.div>
                         ))}

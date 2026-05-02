@@ -105,7 +105,7 @@ const Contact = () => {
                                 initial={{ opacity: 0, y: 16 }}
                                 animate={inView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: 0.2 + i * 0.1 }}
-                                className="card p-5 flex items-center gap-4 group"
+                                className="glass-card p-5 flex items-center gap-4 group"
                             >
                                 <div className={`p-3 rounded-xl ${info.iconBg} ${info.iconColor} group-hover:scale-110 transition-transform duration-300`}>
                                     {info.icon}
@@ -132,7 +132,7 @@ const Contact = () => {
                                         href={s.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`flex items-center gap-2 px-4 py-3 bg-white rounded-xl text-slate-500 border border-slate-200 transition-all duration-200 font-medium text-sm ${s.hoverClass}`}
+                                        className={`flex items-center gap-2 px-4 py-3 glass rounded-xl text-slate-500 transition-all duration-200 font-medium text-sm ${s.hoverClass}`}
                                         aria-label={s.label}
                                     >
                                         {s.icon}
@@ -147,7 +147,7 @@ const Contact = () => {
                             initial={{ opacity: 0 }}
                             animate={inView ? { opacity: 1 } : {}}
                             transition={{ delay: 0.55 }}
-                            className="bg-slate-900 rounded-xl p-5 font-mono text-xs text-slate-400 border border-slate-800"
+                            className="glass-dark rounded-2xl p-5 font-mono text-[10px] sm:text-xs text-slate-300 border border-white/5 shadow-2xl"
                         >
                             <div className="flex gap-1.5 mb-4">
                                 <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
@@ -167,14 +167,16 @@ const Contact = () => {
                         initial={{ opacity: 0, x: 24 }}
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.55, delay: 0.2 }}
-                        className="card p-8"
+                        className="glass-card p-8 rounded-3xl premium-shadow"
                     >
                         <form onSubmit={handleSubmit} className="space-y-5">
                             {/* Name */}
                             <div>
                                 <label className="text-xs font-mono text-slate-400 tracking-widest mb-2 block">YOUR NAME</label>
-                                <div className={`relative transition-all duration-200 ${focused === 'name' ? 'ring-2 ring-indigo-200' : ''} rounded-xl overflow-hidden`}>
-                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"><HiUser /></div>
+                                <div className={`relative transition-all duration-300 group`}>
+                                    <div className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${focused === 'name' ? 'text-indigo-600' : 'text-slate-400'}`}>
+                                        <HiUser className="text-lg" />
+                                    </div>
                                     <input
                                         type="text"
                                         value={formData.name}
@@ -191,8 +193,10 @@ const Contact = () => {
                             {/* Email */}
                             <div>
                                 <label className="text-xs font-mono text-slate-400 tracking-widest mb-2 block">YOUR EMAIL</label>
-                                <div className={`relative transition-all duration-200 ${focused === 'email' ? 'ring-2 ring-indigo-200' : ''} rounded-xl overflow-hidden`}>
-                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"><HiEnvelope /></div>
+                                <div className={`relative transition-all duration-300 group`}>
+                                    <div className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${focused === 'email' ? 'text-indigo-600' : 'text-slate-400'}`}>
+                                        <HiEnvelope className="text-lg" />
+                                    </div>
                                     <input
                                         type="email"
                                         value={formData.email}
@@ -209,8 +213,10 @@ const Contact = () => {
                             {/* Message */}
                             <div>
                                 <label className="text-xs font-mono text-slate-400 tracking-widest mb-2 block">YOUR MESSAGE</label>
-                                <div className={`relative transition-all duration-200 ${focused === 'message' ? 'ring-2 ring-indigo-200' : ''} rounded-xl overflow-hidden`}>
-                                    <div className="absolute left-4 top-4 text-slate-400"><HiChatBubbleLeftRight /></div>
+                                <div className={`relative transition-all duration-300 group`}>
+                                    <div className={`absolute left-4 top-4 transition-colors duration-300 ${focused === 'message' ? 'text-indigo-600' : 'text-slate-400'}`}>
+                                        <HiChatBubbleLeftRight className="text-lg" />
+                                    </div>
                                     <textarea
                                         value={formData.message}
                                         onChange={e => setFormData({ ...formData, message: e.target.value })}
@@ -219,7 +225,7 @@ const Contact = () => {
                                         placeholder="Tell me about your project or idea..."
                                         required
                                         rows={5}
-                                        className="input-field resize-none"
+                                        className="input-field resize-none min-h-[150px]"
                                     />
                                 </div>
                             </div>
