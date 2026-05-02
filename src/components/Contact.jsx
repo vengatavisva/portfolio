@@ -42,13 +42,31 @@ const Contact = () => {
     const [ref, inView] = useInView({ threshold: 0.08, triggerOnce: true })
     const [formData, setFormData] = useState({ name: '', email: '', message: '' })
     const [focused, setFocused] = useState('')
-    const [submitted, setSubmitted] = useState(false)
+    const [status, setStatus] = useState({ loading: false, error: null, success: false })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setSubmitted(true)
-        setTimeout(() => setSubmitted(false), 3000)
-        setFormData({ name: '', email: '', message: '' })
+        setStatus({ loading: true, error: null, success: false })
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                setStatus({ loading: false, error: null, success: true })
+                setFormData({ name: '', email: '', message: '' })
+                setTimeout(() => setStatus(prev => ({ ...prev, success: false })), 5000)
+            } else {
+                setStatus({ loading: false, error: data.error || 'Something went wrong', success: false })
+            }
+        } catch (err) {
+            setStatus({ loading: false, error: 'Failed to connect to server', success: false })
+        }
     }
 
     return (
@@ -210,13 +228,26 @@ const Contact = () => {
                                 type="submit"
                                 whileHover={{ scale: 1.01 }}
                                 whileTap={{ scale: 0.98 }}
-                                disabled={submitted}
-                                className={`w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 ${submitted
+                                disabled={status.loading || status.success}
+                                className={`w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 ${status.success
                                     ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                                    : 'btn-primary'
+                                    : status.error
+                                        ? 'bg-red-50 text-red-600 border border-red-200'
+                                        : 'btn-primary'
                                     }`}
                             >
-                                {submitted ? '✓ Message Sent Successfully!' : <><span>Send Message</span><HiPaperAirplane /></>}
+                                {status.loading ? (
+                                    <span className="flex items-center gap-2">
+                                        <div className="w-4 h-4 border-2 border-indigo-200 border-t-indigo-600 rounded-full animate-spin" />
+                                        Sending...
+                                    </span>
+                                ) : status.success ? (
+                                    '✓ Message Sent Successfully!'
+                                ) : status.error ? (
+                                    status.error
+                                ) : (
+                                    <><span>Send Message</span><HiPaperAirplane /></>
+                                )}
                             </motion.button>
                         </form>
                     </motion.div>
